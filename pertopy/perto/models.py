@@ -20,8 +20,14 @@ class Status(models.Model):
 
     #descrive la tipologia di stato.
     kind = models.ChoicesField(choices=[ ("start", "start"),("incorso", "incorso"), ("installo", "installo"), ("annullata", "annullata"), ("end", "end")], default="incorso")
+
+    def getNextStatues(self,id):
+        return Status.objects.filter(children=id)
+    
     def __str__(self):
         return self.title
+
+
 class Slot(models.Model):
     """Modello di un singolo slot"""
 
