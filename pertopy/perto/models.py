@@ -16,8 +16,10 @@ class Status(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="statuses")
-    parent = models.ForeignKey("self", on_delete=models.CASCADE, related_name="children", null=True, blank=True)
+    children = models.ManyToManyField('self', blank=True, symmetrical=False)
 
+    #descrive la tipologia di stato.
+    kind = models.ChoicesField(choices=[ ("start", "start"),("incorso", "incorso"), ("installo", "installo"), ("annullata", "annullata"), ("end", "end")], default="incorso")
     def __str__(self):
         return self.title
 class Slot(models.Model):
