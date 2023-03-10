@@ -1,0 +1,3 @@
+Per creare un ambiente virtuale, dal prompt dei comandi o terminale di sistema, dare il comando:
+
+> python -m venv nome_ambiente_virtuale
