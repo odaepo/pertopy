@@ -8,6 +8,17 @@ class Task(models.Model):
     description = models.TextField(default = " ")
     #status = models.CharField(choices=[("todo", "To Do"), ("doing", "Doing"), ("done", "Done")], default="todo")
     status = models.ForeignKey('Status', on_delete=models.CASCADE, related_name="tasks", null=True, blank=True)
+    min = models.IntegerField(default=0)
+    max = models.IntegerField(default=100)
+    attuale = models.IntegerField(default=0)
+    priorita = models.IntegerField(default=0)
+    impotanza = models.IntegerField(default=0)
+    minuti = models.IntegerField(default=0)
+    contesto = models.ForeignKey('Contesto', on_delete=models.CASCADE, related_name="tasks", null=True, blank=True)
+    scadenza = models.DateField(null=True, blank=True)
+
+
+
 
 
 
@@ -17,6 +28,32 @@ class Task(models.Model):
         ordering = ['title']
         verbose_name = 'Task'
         verbose_name_plural = 'Tasks'
+class Contesto(models.Model):
+    """Contesto di un task"""
+    title = models.CharField(max_length=200)
+    description = models.TextField(default = " ")
+
+    def __str__(self):
+        return self.title
+    class Meta:
+        ordering = ['title']
+        verbose_name = 'Contesto'
+        verbose_name_plural = 'Contesti'
+class TaskRtask(models.Model):
+    """Definisce le relazioni (kind) fra Task (tra il PrentTask ed in childrenTask)"""
+
+    title = models.CharField(max_length=200)
+    description = models.TextField(default = " ")
+    ptask = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="ptask", null=True, blank=True)
+    ctask = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="ctask", null=True, blank=True)
+    kind = models.CharField(choices=[("contiene", "contiene"), ("altro", "altro")], default="contiene",max_length=20)
+
+    def __str__(self):
+        return self.title
+    class Meta:
+        ordering = ['title']
+        verbose_name = 'TaskRtask'
+        verbose_name_plural = 'TaskRtasks'
 
 
 class Status(models.Model):
@@ -35,6 +72,12 @@ class Status(models.Model):
 
     def __str__(self):
         return self.title
+
+class StatusRstatus(models.Model):
+    """Definisce le transazioni da uno stato all'altro possibili"""
+    fromStatus = models.ForeignKey(Status, on_delete=models.CASCADE, related_name="fromStatus", null=True, blank=True)
+    toStatus = models.ForeignKey(Status, on_delete=models.CASCADE, related_name="toStatus", null=True, blank=True)
+
 
 
 class Slot(models.Model):
