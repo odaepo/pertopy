@@ -55,7 +55,7 @@ ROOT_URLCONF = 'pertopy.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/'perto/template/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
