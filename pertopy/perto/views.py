@@ -11,7 +11,7 @@ class TaskListView(ListView):
 class TaskUpdateView(UpdateView):
     model = Task
     #form_class = TaskForm
-    fields = ['title']
+    fields = ['title', 'description', 'status', 'min', 'max', 'attuale', 'priorita', 'impotanza', 'minuti', 'contesto', 'scadenza']
     #template_name_suffix = '_update_form'
     template_name = 'update_task.html'
 
