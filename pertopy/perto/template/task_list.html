@@ -1,7 +1,30 @@
 <h1>Lista di Task</h1>
 
-{% tasks %}
+{% for task in object_list %}
     <h2>{{ task.name }}</h2>
     <p>{{ task.description }}</p>
     <p>{{ task.status }}</p>
-{% endtasks %}
+    <p><hr></p>
+{% endfor %}
+
+
+<p><hr></p>
+<h2>Task in attesa</h2>
+<p><hr></p>
+{% for task in tasks %}
+    {% if task.status == 'in attesa' %}
+        <h2>{{ task.name }}</h2>
+        <p>{{ task.description }}</p>
+        <p>{{ task.status }}</p>
+        <p><hr></p>
+    {% endif %}
+{% endfor %}
+
+<p><hr></p>
+{% for task in tasks %}
+    <h2>{{ task.name }}</h2>
+    <p>{{ task.description }}</p>
+    <p>{{ task.status }}</p>
+    <p><hr></p>
+{% endfor %}
+<p><hr></p>

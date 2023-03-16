@@ -1,7 +1,19 @@
 from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import TaskForm
 from .models import Task, Status
 
+
+class TaskListView(ListView):
+    model = Task
+    template_name = 'task_list.html'
+
+class TaskUpdateView(UpdateView):
+    model = Task
+    #form_class = TaskForm
+    fields = ['title']
+    #template_name_suffix = '_update_form'
+    template_name = 'update_task.html'
 
 # Create your views here.
 def task_list(request):
