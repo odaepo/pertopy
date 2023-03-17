@@ -4,6 +4,10 @@ from .forms import TaskForm
 from .models import Task, Status
 
 
+class TaskUpdateView(UpdateView):
+    form_class = TaskForm
+    template_name = 'update_task.html'
+
 class TaskListView(ListView):
     model = Task
     template_name = 'task_list.html'
@@ -14,6 +18,7 @@ class TaskUpdateView(UpdateView):
     fields = ['title', 'description', 'status', 'min', 'max', 'attuale', 'priorita', 'impotanza', 'minuti', 'contesto', 'scadenza']
     #template_name_suffix = '_update_form'
     template_name = 'update_task.html'
+
 
 # Create your views here.
 def task_list(request):

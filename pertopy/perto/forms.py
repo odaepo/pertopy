@@ -1,16 +1,32 @@
 from django import forms
-from .models import Task, Status
+from .models import Task, Contesto, Status
 
 class TaskForm(forms.ModelForm):
-    def __init__(self, current_status=None, *args, **kwargs):
-        super(TaskForm, self).__init__(*args, **kwargs)
-        if current_status:
-            next_statuses = Status.objects.filter(children=current_status)
-            self.fields['status'].queryset = Status.objects.filter(pk__in=[current_status.pk, *next_statuses.values_list('pk', flat=True)])
-
     class Meta:
         model = Task
-        fields = ['title', 'description', 'status', 'min', 'max', 'attuale', 'priorita', 'impotanza', 'minuti', 'contesto', 'scadenza']
+        fields = [
+            'title',
+            'description',
+            'status',
+            'min',
+            'max',
+            'attuale',
+            'priorita',
+            'impotanza',
+            'minuti',
+            'contesto',
+            'scadenza'
+        ]
         widgets = {
-            'status': forms.Select(attrs={'class': 'form-control'})
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-control'}),
+            'min': forms.NumberInput(attrs={'class': 'form-control'}),
+            'max': forms.NumberInput(attrs={'class': 'form-control'}),
+            'attuale': forms.NumberInput(attrs={'class': 'form-control'}),
+            'priorita': forms.NumberInput(attrs={'class': 'form-control'}),
+            'impotanza': forms.NumberInput(attrs={'class': 'form-control'}),
+            'minuti': forms.NumberInput(attrs={'class': 'form-control'}),
+            'contesto': forms.Select(attrs={'class': 'form-control'}),
+            'scadenza': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
